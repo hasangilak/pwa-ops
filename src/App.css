@@ -14,3 +14,10 @@ body {
   display: flex;
   flex: 1;
 }
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+  }
+}

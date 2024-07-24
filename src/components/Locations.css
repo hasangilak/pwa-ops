@@ -5,6 +5,12 @@
   border-right: 1px solid #ddd;
 }
 
+@media (max-width: 768px) {
+  .location-list {
+    width: 93%;
+  }
+}
+
 .locations {
   display: flex;
   flex-direction: column;
