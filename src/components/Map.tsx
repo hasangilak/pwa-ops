@@ -4,7 +4,11 @@ import Marker from "./Marker";
 
 import "./Map.css";
 
-const Map: React.FC<{markers: React.ReactNode | React.ReactNode[]}> = ({markers}) => {
+const Map: React.FC<{
+  locations: MapLocation[];
+  selecteds: number[];
+  toggleLocation: (id: number) => void;
+}> = ({ locations, toggleLocation, selecteds }) => {
   return (
     <div id="map" className="map">
       <div style={{ height: "96vh", width: "100%" }}>
@@ -45,7 +49,22 @@ const Map: React.FC<{markers: React.ReactNode | React.ReactNode[]}> = ({markers}
             map.mapTypes.set("OSM", osmMapType);
             map.setMapTypeId("OSM");
           }}
-        >{markers}</GoogleMapReact>
+        >
+          {locations.map((location) => (
+            <Marker
+              id={location.id}
+              selected={selecteds.includes(location.id)}
+              toggleLocation={() => {
+                toggleLocation(location.id);
+                console.log(selecteds, location.id);
+              }}
+              lat={location.coord.lat}
+              lng={location.coord.lng}
+              text={location.name}
+              key={location.id}
+            />
+          ))}
+        </GoogleMapReact>
       </div>
     </div>
   );
