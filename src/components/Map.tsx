@@ -9,7 +9,7 @@ const Map: React.FC = () => {
     <div id="map" className="map">
       <div style={{ height: "96vh", width: "100%" }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyC6he_JrKfD1LHBtLHokSYoIjUvh42aJaI" }}
+          bootstrapURLKeys={{ key: process.env.REACT_APP_GMAP_API || "" }}
           defaultCenter={{
             lat: 52.494868,
             lng: 13.468534,
