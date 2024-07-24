@@ -78,3 +78,55 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
+
+const CACHE_NAME = 'osm-cache-v1';
+const URLS_TO_CACHE = [
+  // Add any other assets you want to cache here
+  '/offline.html',
+];
+
+// Install event - cache offline page and other assets
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(URLS_TO_CACHE);
+    })
+  );
+});
+
+// Fetch event - handle requests and cache OSM tiles
+self.addEventListener('fetch', (event) => {
+  if (event.request.url.startsWith('https://a.tile.openstreetmap.org')) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then((cache) => {
+        return cache.match(event.request).then((response) => {
+          return (
+            response ||
+            fetch(event.request).then((networkResponse) => {
+              cache.put(event.request, networkResponse.clone());
+              return networkResponse;
+            })
+          );
+        });
+      })
+    );
+  } else {
+  
+  }
+});
+
+// Activate event - clean up old caches
+self.addEventListener('activate', (event) => {
+  const cacheWhitelist = [CACHE_NAME];
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+});
