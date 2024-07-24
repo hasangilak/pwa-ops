@@ -1,32 +1,13 @@
 import React from "react";
 import "./Locations.css";
 
-const Locations: React.FC = () => {
-  const locations = [
-    {
-      id: 1,
-      name: "Kladderadatsch",
-      description: "Matjes mit Bratkartoffeln. Sehr lecker....",
-      tags: ["Restaurant", "Food"],
-      address: "Puschkinallee 15, 12435 Berlin",
-      image: "kladderadatsch.jpg",
-    },
-    {
-      id: 2,
-      name: "Schwarzer Panther",
-      description: "Pawel Weselow",
-      tags: ["Monument", "Statue"],
-      address: "Alt, Berlin",
-      image: "schwarzer.jpg",
-    },
-  ];
-
+const Locations: React.FC<{ locations: MapLocation[] }> = ({ locations }) => {
   return (
     <aside className="location-list">
       <div className="locations">
         {locations.map((location) => (
           <div className="location" key={location.id}>
-            <img src={location.image} alt="Seniorenzentrum Nurnberg" />
+            <img src={location.image} alt={location.description} />
             <div className="location-info">
               <h3>{location.name}</h3>
               <p>{location.description}</p>

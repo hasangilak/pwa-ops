@@ -4,7 +4,7 @@ import Marker from "./Marker";
 
 import "./Map.css";
 
-const Map: React.FC = () => {
+const Map: React.FC<{ locations: MapLocation[] }> = ({ locations }) => {
   return (
     <div id="map" className="map">
       <div style={{ height: "96vh", width: "100%" }}>
@@ -46,8 +46,14 @@ const Map: React.FC = () => {
             map.setMapTypeId("OSM");
           }}
         >
-          <Marker lat={52.493486} lng={13.464652} text="Kladderadatsch" />
-          <Marker lat={52.491740028824786} lng={13.469559757131584} text="Schwarzer Panther - Pawel Weselow" />
+          {locations.map((location) => (
+            <Marker
+              lat={location.coord.lat}
+              lng={location.coord.lng}
+              text={location.name}
+              key={location.id}
+            />
+          ))}
         </GoogleMapReact>
       </div>
     </div>
