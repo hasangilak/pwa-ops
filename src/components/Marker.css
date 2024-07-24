@@ -1,0 +1,22 @@
+.marker {
+  display: flex;
+  transform: translate(-50%, -50%);
+  min-width: 45px;
+  min-height: 45px;
+}
+
+.marker img {
+  width: 45px;
+  height: 45px;
+}
+
+.marker span {
+  position: absolute;
+  background-color: white;
+  border-radius: 3px;
+  padding: 5px 10px;
+  font-size: 14px;
+  left: 45px;
+  width: 100px;
+  top: 4px;
+}

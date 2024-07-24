@@ -1,0 +1,52 @@
+.location-list {
+  width: 30%;
+  padding: 20px;
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+}
+
+.locations {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.location {
+  display: flex;
+  gap: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 5px 10px;
+}
+
+.location img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.location-info {
+  flex: 1;
+}
+
+.location-info h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.location-info p {
+  margin: 5px 0;
+}
+
+.location-tags {
+  display: flex;
+  gap: 5px;
+  margin: 10px 0;
+}
+
+.location-tags span {
+  padding: 5px 10px;
+  background-color: #eee;
+  border-radius: 5px;
+  font-size: 12px;
+}
