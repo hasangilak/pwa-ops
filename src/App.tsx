@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./components/Header";
 import SearchFilters from "./components/Locations";
 import Map from "./components/Map";
 import "./App.css";
+import Marker from "./components/Marker";
 
 const App: React.FC = () => {
+  const [selecteds, setSelecteds] = useState<number[]>([]);
+
   const locations: MapLocation[] = [
     {
       id: 1,
@@ -44,12 +47,33 @@ const App: React.FC = () => {
     },
   ];
 
+  const toggleLocation = (id: number) => {
+    console.log(selecteds, selecteds.includes(id)) 
+    if(selecteds.includes(id)) {
+      setSelecteds(selecteds.filter(addedId => addedId !== id))
+    } else {
+      setSelecteds(selecteds => [...selecteds, id]);
+    }
+  }
+
+  const Markers = locations.map((location) => (
+    <Marker
+      id={location.id}
+      selected={selecteds.includes(location.id)}
+      toggleLocation={toggleLocation}
+      lat={location.coord.lat}
+      lng={location.coord.lng}
+      text={location.name}
+      key={location.id}
+    />
+  ))
+
   return (
     <div className="container">
       <Header />
       <div className="main-content">
-        <SearchFilters locations={locations} />
-        <Map locations={locations} />
+        <SearchFilters locations={locations} selecteds={selecteds} toggleLocation={toggleLocation}/>
+        <Map markers={Markers}/>
       </div>
     </div>
   );

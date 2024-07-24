@@ -4,7 +4,7 @@ import Marker from "./Marker";
 
 import "./Map.css";
 
-const Map: React.FC<{ locations: MapLocation[] }> = ({ locations }) => {
+const Map: React.FC<{markers: React.ReactNode | React.ReactNode[]}> = ({markers}) => {
   return (
     <div id="map" className="map">
       <div style={{ height: "96vh", width: "100%" }}>
@@ -45,16 +45,7 @@ const Map: React.FC<{ locations: MapLocation[] }> = ({ locations }) => {
             map.mapTypes.set("OSM", osmMapType);
             map.setMapTypeId("OSM");
           }}
-        >
-          {locations.map((location) => (
-            <Marker
-              lat={location.coord.lat}
-              lng={location.coord.lng}
-              text={location.name}
-              key={location.id}
-            />
-          ))}
-        </GoogleMapReact>
+        >{markers}</GoogleMapReact>
       </div>
     </div>
   );

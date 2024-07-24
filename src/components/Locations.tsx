@@ -1,12 +1,24 @@
 import React from "react";
 import "./Locations.css";
 
-const Locations: React.FC<{ locations: MapLocation[] }> = ({ locations }) => {
+const Locations: React.FC<{
+  locations: MapLocation[];
+  selecteds: number[];
+  toggleLocation: (id: number) => void;
+}> = ({ locations, selecteds, toggleLocation }) => {
   return (
     <aside className="location-list">
       <div className="locations">
         {locations.map((location) => (
-          <div className="location" key={location.id}>
+          <div
+            className={`location ${
+              selecteds.includes(location.id) ? "selected" : ""
+            }`}
+            key={location.id}
+            onClick={() => {
+              toggleLocation(location.id);
+            }}
+          >
             <img src={location.image} alt={location.description} />
             <div className="location-info">
               <h3>{location.name}</h3>
